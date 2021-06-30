@@ -5,6 +5,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 const StatesList = (props) => {
   const stateSelectionHandler = (e, option) => {
     props.setSelectedState(option);
+    localStorage.removeItem("selectedState");
+    localStorage.removeItem("selectedDistrict");
   };
   return (
     <Autocomplete
