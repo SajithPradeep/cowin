@@ -9,6 +9,7 @@ import Alert from "./components/Alert/Alert";
 import Details from "./components/Details/Details";
 import Modal from "react-modal";
 import vaccineContext from "./context/vaccineContext";
+import Checkbox from "@material-ui/core/Checkbox";
 
 Modal.setAppElement("#root");
 
@@ -40,17 +41,24 @@ function App() {
     setIsOpen(false);
   }
 
-  const saveDistrict = () => {
-    localStorage.setItem("selectedState", JSON.stringify(selectedState));
-    localStorage.setItem("selectedDistrict", JSON.stringify(selectedDistrict));
-    setSavedDistrictState(true);
+  const saveDistrict = (e) => {
+    if (e.target.checked) {
+      localStorage.setItem("selectedState", JSON.stringify(selectedState));
+      localStorage.setItem(
+        "selectedDistrict",
+        JSON.stringify(selectedDistrict)
+      );
+      setSavedDistrictState(true);
+    } else {
+      clearSavedData();
+    }
   };
   const clearSavedData = () => {
     localStorage.removeItem("selectedState");
     localStorage.removeItem("selectedDistrict");
-    setSelectedState(null);
-    setSelectedDistrict(null);
     setSavedDistrictState(false);
+    setSelectedDistrict(null);
+    setSelectedState(null);
   };
 
   useEffect(() => {
@@ -109,9 +117,9 @@ function App() {
               <div style={{ marginTop: "20px" }}></div>
               {selectedState !== null && (
                 <>
-                  <div className="alert alert-success" role="alert">
+                  {/* <div className="alert alert-success" role="alert">
                     {selectedState.state_name}
-                  </div>
+                  </div> */}
                   {!savedDistrictState && (
                     <DistrictList
                       selectedState={selectedState}
@@ -119,16 +127,16 @@ function App() {
                     />
                   )}
                   <div style={{ marginTop: "20px" }}></div>
-                  {selectedDistrict && (
+                  {/* {selectedDistrict && (
                     <div className="alert alert-success" role="alert">
                       {selectedDistrict.district_name}
                     </div>
-                  )}
+                  )} */}
                 </>
               )}
               {selectedState && selectedDistrict ? (
                 <>
-                  {savedDistrictState ? (
+                  {/* {savedDistrictState ? (
                     <div className="alert alert-info">
                       <p>The State and District details have been saved!</p>
                       <p>
@@ -142,16 +150,28 @@ function App() {
                       </button>
                     </div>
                   ) : (
-                    <>
-                      <p>Save this District and State for next time?</p>
-                      <button
-                        className="btn btn-primary"
-                        onClick={saveDistrict}
-                      >
-                        Yes
-                      </button>
-                    </>
-                  )}
+                    <> */}
+                  <p>
+                    {savedDistrictState
+                      ? `${selectedDistrict.district_name} (district) & ${selectedState.state_name}(state) Saved`
+                      : "Save this District and State for next time?"}
+                    <span>
+                      {/* <input
+                            type="checkbox"
+                            onChange={saveDistrict}
+                            style={{ marginTop: "5px" }}
+                          /> */}
+                      <Checkbox
+                        color="primary"
+                        checked={savedDistrictState}
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                        size="medium"
+                        onChange={(e) => saveDistrict(e)}
+                      />
+                    </span>
+                  </p>
+                  {/* </>
+                  )} */}
                   <SlotDetails selectedDistrict={selectedDistrict} />
                 </>
               ) : null}
