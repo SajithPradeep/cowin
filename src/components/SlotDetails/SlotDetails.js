@@ -15,7 +15,24 @@ const SlotDetails = (props) => {
       )
       .then((data) => {
         console.log(data.data.centers);
-        setSlots(data.data.centers);
+        let availableCenters = data.data.centers.filter((x) => {
+          let availableCount = 0;
+          x.sessions = x.sessions.filter((session) => {
+            if (session.available_capacity > 0) {
+              availableCount = availableCount + session.available_capacity;
+              return session;
+            } else {
+              return false;
+            }
+          });
+          if (availableCount > 0) {
+            return x;
+          } else {
+            return false;
+          }
+        });
+        console.log(availableCenters);
+        setSlots(availableCenters);
         setError(null);
       })
       .catch((err) => {

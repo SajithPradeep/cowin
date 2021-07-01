@@ -1,15 +1,10 @@
 import React from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import { useLocation } from "react-router-dom";
 
 const Details = (props) => {
-  const location = useLocation();
-  const { name, address, sessions } = location.state;
+  const { name, address, sessions } = props.slot;
 
   return (
     <>
-      <Header />
       <div className="container" style={{ marginBottom: "70px" }}>
         <h4>{name}</h4>
         <h5>{address}</h5>
@@ -54,7 +49,6 @@ const Details = (props) => {
           );
         })}
       </div>
-      <Footer />
     </>
   );
 };

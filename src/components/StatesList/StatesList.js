@@ -10,6 +10,8 @@ const StatesList = (props) => {
   };
   return (
     <Autocomplete
+      autoSelect={true}
+      disableCloseOnSelect={false}
       id="combo-box-demo"
       options={props.states}
       getOptionLabel={(option) => option.state_name}

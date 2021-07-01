@@ -1,10 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+//import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import vaccineContext from "../../context/vaccineContext";
 
 const SlotCard = (props) => {
+  const { handleCardClick } = useContext(vaccineContext);
+  const cardSelectHandler = () => {
+    handleCardClick(props.slot);
+  };
   return (
-    <div className="slot-card" key={props.slot.center_id}>
+    <div
+      className="slot-card"
+      key={props.slot.center_id}
+      onClick={cardSelectHandler}
+    >
       <p
         style={{
           padding: "0.5rem",
@@ -41,11 +50,7 @@ const SlotCard = (props) => {
           {props.slot.from} to {props.slot.to}
         </span>
       </p>
-      <Button size="large">
-        <Link to={{ pathname: "/details", state: props.slot }}>
-          View Details
-        </Link>
-      </Button>
+      <Button size="large">View Details</Button>
     </div>
   );
 };

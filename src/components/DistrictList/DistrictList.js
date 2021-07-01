@@ -36,6 +36,8 @@ const DistrictList = (props) => {
   return (
     <>
       <Autocomplete
+        autoSelect={true}
+        disableCloseOnSelect={false}
         id="combo-box-demo"
         options={districtData}
         loading={districtData ? false : true}
