@@ -10,16 +10,6 @@ import Details from "./components/Details/Details";
 import Modal from "react-modal";
 import vaccineContext from "./context/vaccineContext";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 Modal.setAppElement("#root");
 
 function App() {
@@ -173,12 +163,14 @@ function App() {
               isOpen={modalIsOpen}
               onAfterOpen={afterOpenModal}
               onRequestClose={closeModal}
-              style={customStyles}
               contentLabel="Example Modal"
             >
-              <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
+              <h3
+                style={{ color: "#3f51b5" }}
+                ref={(_subtitle) => (subtitle = _subtitle)}
+              >
                 Find the available slots below
-              </h2>
+              </h3>
               <Details slot={slotInfo} />
               <button onClick={closeModal}>close</button>
             </Modal>
